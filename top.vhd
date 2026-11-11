@@ -229,7 +229,13 @@ hex2_out_uut: seven_seg
   trunc_process: process(clk_50_mhz, displaysig, reset_s)
   begin
 	if (reset_s = '1') then 
-	  displaysig <= "00000000";
+	  digit0_temp <= (others => '0');
+      digit1_temp <= (others => '0');
+      digit2_temp <= (others => '0');
+	else
+	  digit0_temp <= std_logic_vector( (unsigned(displaysig) - (unsigned(displaysig) mod 100) )/100);
+      digit1_temp <= std_logic_vector( ( (unsigned(displaysig) mod 100) - (unsigned(displaysig) mod 10) )/10);
+      digit2_temp <= std_logic_vector( (unsigned(displaysig) mod 10) );
 	end if;
     digit0_temp <= std_logic_vector( (unsigned(displaysig) - (unsigned(displaysig) mod 100) )/100);
     digit1_temp <= std_logic_vector( ( (unsigned(displaysig) mod 100) - (unsigned(displaysig) mod 10) )/10);
